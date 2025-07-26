@@ -17,8 +17,17 @@ import {
   ExternalLink,
   Loader2
 } from "lucide-react";
+import { useNavigate,useLocation } from "react-router-dom";
+
+
 
 export default function ContactPage({ theme = "dark" }) {
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isContactPage = location.pathname === "/contact-cta";
+
+  
   const [formState, setFormState] = useState({
     name: "",
     email: "",
@@ -149,13 +158,29 @@ export default function ContactPage({ theme = "dark" }) {
   ];
 
   return (
-    <div className={`min-h-screen transition-all duration-500 ${currentTheme.bg}`}>
+    <div className={`transition-all duration-500 ${currentTheme.bg}`}>
       {/* Background Effects */}
+      {isContactPage && (
+        <div className="flex justify-end max-w-7xl mx-auto px-6 mt-4 mb-6">
+          <button
+            onClick={() => navigate(-1)}
+            className="relative group inline-flex items-center gap-2 px-5 py-2 rounded-md border-2 border-pink-500 text-pink-400 text-sm font-semibold transition duration-300 ease-in-out hover:text-white hover:shadow-[0_0_12px_3px_rgba(255,105,180,0.6)] hover:bg-pink-500"
+          >
+            <span className="absolute -inset-1 rounded-md bg-gradient-to-r from-red-500 via-orange-400 to-blue-500 opacity-25 blur-sm group-hover:opacity-50 group-hover:blur-md transition-all duration-500"></span>
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            <span className="z-10">Go Back</span>
+          </button>
+        </div>
+      )}
+
       <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-transparent to-pink-500/5"></div>
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-3xl"></div>
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-pink-500/10 to-orange-500/10 rounded-full blur-3xl"></div>
       
       <main className="relative z-10 pt-24 pb-20 px-4">
+      
         {/* Header Section */}
         <div className="container mx-auto max-w-6xl mb-16">
           <div className="text-center">
@@ -363,8 +388,8 @@ export default function ContactPage({ theme = "dark" }) {
               </div>
 
               {/* Availability Status */}
-              <div className={`${currentTheme.cardBg} backdrop-blur-md rounded-3xl p-8 border shadow-2xl`}>
-                <div className="flex items-center space-x-3 mb-4">
+             {/* <div className={`${currentTheme.cardBg} backdrop-blur-md rounded-3xl p-8 border shadow-2xl`}>
+                 <div className="flex items-center space-x-3 mb-4">
                   <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
                   <span className={`font-semibold ${currentTheme.text}`}>Available for Projects</span>
                 </div>
@@ -378,18 +403,18 @@ export default function ContactPage({ theme = "dark" }) {
                     <span>Free consultation available</span>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
 
         {/* Theme Indicator */}
-        <div className="flex justify-center mt-12">
+        {/* <div className="flex justify-center mt-12">
           <div className={`inline-flex items-center space-x-3 px-4 py-2 rounded-lg border backdrop-blur-sm ${currentTheme.cardBg}`}>
             <span className={`text-xs ${currentTheme.textMuted}`}>Current Theme:</span>
             <span className="text-cyan-400 text-xs font-medium capitalize">{theme}</span>
           </div>
-        </div>
+        </div> */}
       </main>
     </div>
   );

@@ -48,7 +48,7 @@ export default function ComponentsPage() {
   const [progress, setProgress] = useState(60);
   
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className=" flex flex-col">
       <Header />
       
       <main className="flex-1">

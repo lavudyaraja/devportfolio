@@ -58,24 +58,24 @@ This project is built with:
  Prerequisites
 
  Node.js (v14 or higher)
- pnpm package manager
+ npm package manager
 
  Installation
 
 1. Clone the repository:
    bash
-   git clone https://github.com/yourusername/softwareengineerportfolio.git
-   cd softwareengineerportfolio
+   git clone https://github.com/lavudyaraja/devport.git
+   cd Portfolio
    
 
 2. Install dependencies:
    bash
-   pnpm install
+   npm install
    
 
 3. Start the development server:
    bash
-   pnpm run dev
+   npm run dev
    
 
 4. Open http://localhost:5173 to view the portfolio in your browser
@@ -85,7 +85,7 @@ This project is built with:
 To build the application for production:
 
 bash
-pnpm run build
+npm run build
 
 
 The build artifacts will be located in the dist directory.

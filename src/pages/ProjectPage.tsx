@@ -222,41 +222,32 @@ export default function ProfessionalPortfolio() {
   ];
 
   return (
-    <div className={`min-h-screen transition-all duration-500 ${
+    <div className={`min-h-screen transition-all duration-300 ${
       isDark 
-        ? 'bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-slate-100' 
-        : 'bg-gradient-to-br from-slate-50 via-white to-slate-100 text-slate-900'
+        ? 'bg-gray-900 text-white' 
+        : 'bg-gray-50 text-gray-900'
     }`}>
       {/* Header */}
-      <header className={`sticky top-0 z-50 border-b backdrop-blur-md ${
+      <header className={`sticky top-0 z-50 border-b backdrop-blur-sm ${
         isDark 
-          ? 'bg-slate-900/80 border-slate-700/50 shadow-lg shadow-slate-900/20' 
-          : 'bg-white/80 border-slate-200/50 shadow-lg shadow-slate-900/5'
+          ? 'bg-gray-900/90 border-gray-700' 
+          : 'bg-white/90 border-gray-200'
       }`}>
-        <div className="container mx-auto px-6 py-5 flex justify-between items-center">
+        <div className="container mx-auto px-6 py-4 flex justify-between items-center">
           <div className="flex items-center space-x-4">
-            <div className={`w-10 h-10 rounded-lg ${
-              isDark 
-                ? 'bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg shadow-blue-500/25' 
-                : 'bg-gradient-to-br from-blue-600 to-indigo-700 shadow-lg shadow-blue-600/25'
-            } flex items-center justify-center`}>
-              <Code className="w-5 h-5 text-white" />
-            </div>
-            <h1 className={`text-2xl font-bold bg-gradient-to-r ${
-              isDark 
-                ? 'from-slate-100 to-slate-300' 
-                : 'from-slate-900 to-slate-700'
-            } bg-clip-text text-transparent`}>
+            <h1 className={`text-2xl font-bold ${
+              isDark ? 'text-white' : 'text-gray-900'
+            }`}>
               Professional Portfolio
             </h1>
           </div>
           
           <button
             onClick={() => setIsDark(!isDark)}
-            className={`p-3 rounded-xl transition-all duration-300 ${
+            className={`p-2 rounded-lg transition-colors duration-200 ${
               isDark
-                ? 'hover:bg-slate-800 text-slate-400 hover:text-slate-200 hover:shadow-lg hover:shadow-slate-800/50'
-                : 'hover:bg-slate-100 text-slate-600 hover:text-slate-900 hover:shadow-lg hover:shadow-slate-900/10'
+                ? 'hover:bg-gray-800 text-gray-300 hover:text-white'
+                : 'hover:bg-gray-100 text-gray-600 hover:text-gray-900'
             }`}
           >
             {isDark ? (
@@ -268,38 +259,36 @@ export default function ProfessionalPortfolio() {
         </div>
       </header>
 
-      <main className="py-16">
+      <main className="py-12">
         <div className="container mx-auto px-6">
           {/* Hero Section */}
-          <div className="text-center mb-20">
-            <h2 className={`text-6xl font-bold mb-8 bg-gradient-to-r ${
-              isDark 
-                ? 'from-slate-100 via-blue-100 to-indigo-200' 
-                : 'from-slate-900 via-blue-900 to-indigo-900'
-            } bg-clip-text text-transparent`}>
+          <div className="text-center mb-16">
+            <h2 className={`text-5xl font-bold mb-6 ${
+              isDark ? 'text-white' : 'text-gray-900'
+            }`}>
               Featured Projects
             </h2>
-            <p className={`text-xl leading-relaxed max-w-4xl mx-auto ${
-              isDark ? 'text-slate-300' : 'text-slate-600'
+            <p className={`text-xl leading-relaxed max-w-3xl mx-auto ${
+              isDark ? 'text-gray-300' : 'text-gray-600'
             }`}>
               A collection of high-impact software solutions showcasing expertise in modern technologies and scalable architectures
             </p>
           </div>
 
           {/* Search Bar */}
-          <div className="max-w-xl mx-auto mb-16">
+          <div className="max-w-xl mx-auto mb-12">
             <div className="relative">
               <Search className={`absolute left-4 top-4 h-5 w-5 ${
-                isDark ? 'text-slate-400' : 'text-slate-500'
+                isDark ? 'text-gray-400' : 'text-gray-500'
               }`} />
               <input
                 type="text"
                 placeholder="Search projects, technologies, or categories..."
-                className={`w-full pl-12 pr-4 py-4 rounded-xl border-2 transition-all duration-300 ${
+                className={`w-full pl-12 pr-4 py-4 rounded-lg border transition-colors duration-200 ${
                   isDark
-                    ? 'bg-slate-800/50 border-slate-700 text-slate-100 placeholder-slate-400 focus:border-blue-500 focus:bg-slate-800/80 shadow-xl shadow-slate-900/20'
-                    : 'bg-white/70 border-slate-200 text-slate-900 placeholder-slate-500 focus:border-blue-500 focus:bg-white shadow-xl shadow-slate-900/5'
-                } focus:outline-none focus:ring-4 focus:ring-blue-500/20 backdrop-blur-sm`}
+                    ? 'bg-gray-800 border-gray-700 text-white placeholder-gray-400 focus:border-blue-500'
+                    : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500 focus:border-blue-500'
+                } focus:outline-none focus:ring-2 focus:ring-blue-500/20`}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -307,20 +296,20 @@ export default function ProfessionalPortfolio() {
           </div>
 
           {/* Category Navigation */}
-          <div className="flex flex-wrap justify-center gap-4 mb-16">
+          <div className="flex flex-wrap justify-center gap-3 mb-12">
             {categories.map((category) => {
               const Icon = category.icon;
               return (
                 <button
                   key={category.value}
                   onClick={() => setCurrentCategory(category.value)}
-                  className={`flex items-center space-x-3 px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
                     currentCategory === category.value
-                      ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/30 transform scale-105'
+                      ? 'bg-blue-600 text-white shadow-md'
                       : isDark
-                        ? 'bg-slate-800/50 text-slate-300 hover:bg-slate-700/70 hover:text-slate-100 border border-slate-700/50 hover:border-slate-600 hover:shadow-lg hover:shadow-slate-900/20'
-                        : 'bg-white/70 text-slate-700 hover:bg-white hover:text-slate-900 border border-slate-200 hover:border-slate-300 hover:shadow-lg hover:shadow-slate-900/10'
-                  } backdrop-blur-sm`}
+                        ? 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white'
+                        : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
+                  }`}
                 >
                   <Icon className="h-4 w-4" />
                   <span>{category.label}</span>
@@ -339,81 +328,54 @@ export default function ProfessionalPortfolio() {
 
 function ProjectGrid({ projects, isDark }) {
   return projects.length > 0 ? (
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
       {projects.map((project, index) => (
         <div
           key={index}
-          className={`group rounded-2xl border-2 transition-all duration-500 hover:shadow-2xl overflow-hidden transform hover:-translate-y-1 ${
+          className={`group rounded-xl border transition-all duration-300 hover:shadow-xl ${
             isDark 
-              ? 'bg-slate-800/50 border-slate-700/50 hover:border-slate-600/70 hover:shadow-slate-900/30 backdrop-blur-sm' 
-              : 'bg-white/70 border-slate-200/50 hover:border-slate-300/70 hover:shadow-slate-900/10 backdrop-blur-sm'
+              ? 'bg-gray-800 border-gray-700 hover:border-gray-600' 
+              : 'bg-white border-gray-200 hover:border-gray-300 hover:shadow-gray-200'
           }`}
         >
-          {/* Project Image */}
-          <div className="relative overflow-hidden">
-            <img
-              src={project.image}
-              alt={project.title}
-              className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
-              onError={(e) => {
-                // e.target.style.display = 'none';
-                // e.target.nextSibling.style.display = 'flex';
-              }}
-            />
-            {/* Fallback for broken images */}
-            <div className={`hidden w-full h-48 items-center justify-center ${
-              isDark ? 'bg-slate-700' : 'bg-slate-100'
-            }`}>
-              <div className={`text-4xl ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
-                📱
+          {/* Header */}
+          <div className={`p-6 border-b ${
+            isDark ? 'border-gray-700' : 'border-gray-100'
+          }`}>
+            <div className="flex justify-between items-start mb-3">
+              <div className="flex space-x-2">
+                {project.featured && (
+                  <span className="px-2 py-1 text-xs font-semibold bg-blue-100 text-blue-800 rounded-full">
+                    Featured
+                  </span>
+                )}
+                <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
+                  project.difficulty === 'Expert' 
+                    ? 'bg-red-100 text-red-700' 
+                    : project.difficulty === 'Advanced'
+                      ? 'bg-orange-100 text-orange-700'
+                      : 'bg-green-100 text-green-700'
+                }`}>
+                  {project.difficulty}
+                </span>
+                <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
+                  project.impact === 'High' 
+                    ? 'bg-purple-100 text-purple-700' 
+                    : 'bg-blue-100 text-blue-700'
+                }`}>
+                  {project.impact} Impact
+                </span>
               </div>
             </div>
             
-            {/* Gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            
-            {/* Overlay with badges */}
-            <div className="absolute top-4 left-4 flex space-x-2">
-              {project.featured && (
-                <span className="px-3 py-1 text-xs font-bold bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-full shadow-lg backdrop-blur-sm">
-                  Featured
-                </span>
-              )}
-              <span className={`px-3 py-1 text-xs font-bold rounded-full shadow-lg backdrop-blur-sm ${
-                project.difficulty === 'Expert' 
-                  ? 'bg-gradient-to-r from-red-500 to-rose-500 text-white' 
-                  : project.difficulty === 'Advanced'
-                    ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-white'
-                    : 'bg-gradient-to-r from-emerald-500 to-green-500 text-white'
-              }`}>
-                {project.difficulty}
-              </span>
-            </div>
-            
-            {/* Impact badge */}
-            <div className="absolute top-4 right-4">
-              <span className={`px-3 py-1 text-xs font-bold rounded-full shadow-lg backdrop-blur-sm ${
-                project.impact === 'High' 
-                  ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white' 
-                  : 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white'
-              }`}>
-                {project.impact} Impact
-              </span>
-            </div>
-          </div>
-
-          {/* Header */}
-          <div className={`p-6 border-b ${
-            isDark ? 'border-slate-700/50' : 'border-slate-200/50'
-          }`}>
-            <h3 className={`text-xl font-bold mb-3 ${
-              isDark ? 'text-slate-100' : 'text-slate-900'
+            <h3 className={`text-xl font-bold mb-2 ${
+              isDark ? 'text-white' : 'text-gray-900'
             }`}>
               {project.title}
             </h3>
             
             <p className={`text-sm leading-relaxed ${
-              isDark ? 'text-slate-300' : 'text-slate-600'
+              isDark ? 'text-gray-300' : 'text-gray-600'
             }`}>
               {project.description}
             </p>
@@ -426,10 +388,10 @@ function ProjectGrid({ projects, isDark }) {
               {project.tags.map((tag) => (
                 <span
                   key={tag}
-                  className={`px-3 py-1 text-xs font-medium rounded-lg transition-colors duration-200 ${
+                  className={`px-3 py-1 text-xs font-medium rounded-full ${
                     isDark 
-                      ? 'bg-slate-700/70 text-slate-300 hover:bg-slate-600/70 hover:text-slate-200' 
-                      : 'bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-800'
+                      ? 'bg-gray-700 text-gray-300' 
+                      : 'bg-gray-100 text-gray-700'
                   }`}
                 >
                   {tag}
@@ -444,10 +406,10 @@ function ProjectGrid({ projects, isDark }) {
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`p-3 rounded-xl border-2 transition-all duration-300 hover:scale-105 ${
+                  className={`p-2 rounded-lg border transition-colors duration-200 ${
                     isDark
-                      ? 'border-slate-600/50 text-slate-400 hover:border-slate-500 hover:text-slate-200 hover:bg-slate-700/50'
-                      : 'border-slate-300/50 text-slate-600 hover:border-slate-400 hover:text-slate-900 hover:bg-slate-50'
+                      ? 'border-gray-600 text-gray-400 hover:border-gray-500 hover:text-white'
+                      : 'border-gray-300 text-gray-600 hover:border-gray-400 hover:text-gray-900'
                   }`}
                 >
                   <Github className="h-4 w-4" />
@@ -456,10 +418,10 @@ function ProjectGrid({ projects, isDark }) {
                   href={project.demo}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`p-3 rounded-xl border-2 transition-all duration-300 hover:scale-105 ${
+                  className={`p-2 rounded-lg border transition-colors duration-200 ${
                     isDark
-                      ? 'border-slate-600/50 text-slate-400 hover:border-slate-500 hover:text-slate-200 hover:bg-slate-700/50'
-                      : 'border-slate-300/50 text-slate-600 hover:border-slate-400 hover:text-slate-900 hover:bg-slate-50'
+                      ? 'border-gray-600 text-gray-400 hover:border-gray-500 hover:text-white'
+                      : 'border-gray-300 text-gray-600 hover:border-gray-400 hover:text-gray-900'
                   }`}
                 >
                   <ExternalLink className="h-4 w-4" />
@@ -470,7 +432,7 @@ function ProjectGrid({ projects, isDark }) {
                 href={project.demo}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-105"
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors duration-200"
               >
                 View Project
               </a>
@@ -480,15 +442,15 @@ function ProjectGrid({ projects, isDark }) {
       ))}
     </div>
   ) : (
-    <div className="text-center py-24">
-      <div className={`text-8xl mb-8 ${isDark ? 'text-slate-600' : 'text-slate-400'}`}>
+    <div className="text-center py-20">
+      <div className={`text-6xl mb-6 ${isDark ? 'text-gray-600' : 'text-gray-400'}`}>
         🔍
       </div>
-      <h3 className={`text-3xl font-bold mb-6 ${isDark ? 'text-slate-200' : 'text-slate-900'}`}>
+      <h3 className={`text-2xl font-bold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>
         No Projects Found
       </h3>
-      <p className={`${isDark ? 'text-slate-400' : 'text-slate-600'} text-lg max-w-md mx-auto`}>
-        Try adjusting your search criteria or browse different categories to discover amazing projects
+      <p className={`${isDark ? 'text-gray-400' : 'text-gray-600'} text-lg`}>
+        Try adjusting your search criteria or browse different categories
       </p>
     </div>
   );

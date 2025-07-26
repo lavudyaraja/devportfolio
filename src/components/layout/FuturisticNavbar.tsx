@@ -1,195 +1,296 @@
-import { useState } from "react";
-import { Menu, X, Maximize, Minimize } from "lucide-react";
-import { useTheme } from "@/hooks/use-theme";
-import ThemeDropdown from "../ui/ThemeToggleButton";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { 
+  Home, 
+  User, 
+  Brain, 
+  BookOpen, 
+  Award, 
+  Mail, 
+  Maximize, 
+  Minimize,
+  Zap,
+  Menu,
+  X
+} from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { FolderKanban } from 'lucide-react';
 
-const navItems = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about-preview" },
-  { label: "Projects", href: "/projects-preview" },
-  { label: "Skills", href: "/skills-preview" },
-  { label: "Blog", href: "/blog-preview" },
-  { label: "Contact", href: "/contact-cta" },
-];
+interface NavItem {
+  id: string;
+  name: string;
+  icon: React.ElementType;
+  neonColor: string;
+  link: string;
+}
+const FuturisticNavbar: React.FC = () => {
+  const [activeItem, setActiveItem] = useState<string>('home');
+  const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
 
-export default function FuturisticNavbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isFullscreen, setIsFullscreen] = useState(false);
-  const [activeLink, setActiveLink] = useState("Home");
+  const navItems: NavItem[] = [
+    { 
+      id: 'home', 
+      name: 'Home', 
+      icon: Home, 
+      neonColor: 'text-pink-400',
+      link: '/'
+    },
+    { 
+      id: 'about', 
+      name: 'About', 
+      icon: User, 
+      neonColor: 'text-yellow-400',
+      link: '/about-preview'
+    },
+    { 
+      id: 'skills', 
+      name: 'Skills', 
+      icon: Brain, 
+      neonColor: 'text-cyan-300',
+      link: '/skills-preview'
+    },
+    {
+      id: 'projects',
+      name: 'Projects',
+      icon: FolderKanban,
+      neonColor: 'text-green-400',
+      link: '/projects-preview'
+    },    
+    { 
+      id: 'blog', 
+      name: 'Blog', 
+      icon: BookOpen, 
+      neonColor: 'text-blue-400',
+      link: '/blog'
+    },
+    { 
+      id: 'certifications', 
+      name: 'Certifications', 
+      icon: Award, 
+      neonColor: 'text-pink-400',
+      link: '/certificate'
+    },
+    { 
+      id: 'contacts', 
+      name: 'Contacts', 
+      icon: Mail, 
+      neonColor: 'text-yellow-400',
+      link: '/contact-cta'
+    },
+  ];
   
-  // Get theme from useTheme hook
-  const { resolvedTheme } = useTheme();
 
-  const themeColors = {
-    dark: {
-      bg: 'bg-gray-900',
-      cardBg: 'bg-gray-800/50 border-gray-700/50',
-      text: 'text-gray-100',
-      textSecondary: 'text-gray-300',
-      controlBg: 'bg-gray-800/80 hover:bg-gray-700',
-      controlBorder: 'border-gray-600',
-      buttonBg: 'bg-gray-700 hover:bg-gray-600',
-      dotInactive: 'bg-gray-600 hover:bg-gray-500',
-      navbarBg: 'bg-gray-900/95 border-gray-700/50',
-      mobileBg: 'bg-gray-900/98',
-      activeButton: 'bg-gray-800/70 text-cyan-400 border-cyan-400/30',
-      inactiveButton: 'text-gray-100 hover:bg-gray-800/50',
-      logo: {
-        first: 'text-yellow-400',
-        second: 'text-orange-400', 
-        third: 'text-pink-400'
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+  }, []);
+
+  const toggleFullscreen = async () => {
+    try {
+      if (!document.fullscreenElement) {
+        await document.documentElement.requestFullscreen();
+      } else {
+        await document.exitFullscreen();
       }
-    },
-    light: {
-      bg: 'bg-gray-50',
-      cardBg: 'bg-white/80 border-gray-200/50',
-      text: 'text-gray-900',
-      textSecondary: 'text-gray-600',
-      controlBg: 'bg-white/80 hover:bg-white',
-      controlBorder: 'border-gray-200',
-      buttonBg: 'bg-gray-200 hover:bg-gray-300',
-      dotInactive: 'bg-gray-300 hover:bg-gray-400',
-      navbarBg: 'bg-white/95 border-gray-200/50',
-      mobileBg: 'bg-white/98',
-      activeButton: 'bg-blue-100 text-blue-600 border-blue-300',
-      inactiveButton: 'text-gray-700 hover:bg-gray-100',
-      logo: {
-        first: 'text-orange-500',
-        second: 'text-blue-500',
-        third: 'text-purple-500'
-      }
-    },
-    system: {
-      bg: 'bg-slate-800',
-      cardBg: 'bg-slate-700/50 border-slate-600/50',
-      text: 'text-slate-100',
-      textSecondary: 'text-slate-300',
-      controlBg: 'bg-slate-700/80 hover:bg-slate-600',
-      controlBorder: 'border-slate-500',
-      buttonBg: 'bg-slate-600 hover:bg-slate-500',
-      dotInactive: 'bg-slate-500 hover:bg-slate-400',
-      navbarBg: 'bg-slate-800/95 border-slate-600/50',
-      mobileBg: 'bg-slate-800/98',
-      activeButton: 'bg-slate-700/70 text-emerald-400 border-emerald-400/30',
-      inactiveButton: 'text-slate-100 hover:bg-slate-700/50',
-      logo: {
-        first: 'text-emerald-400',
-        second: 'text-cyan-400',
-        third: 'text-violet-400'
-      }
+    } catch (error) {
+      console.error('Fullscreen toggle failed:', error);
     }
   };
 
-  // Get current theme colors
-  const currentColors = themeColors[resolvedTheme] || themeColors.system;
-
-  const toggleMenu = () => setIsOpen(!isOpen);
-
-  const toggleFullscreen = () => {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen();
-      setIsFullscreen(true);
-    } else {
-      document.exitFullscreen();
-      setIsFullscreen(false);
-    }
+  const handleItemClick = (itemId: string) => {
+    setActiveItem(itemId);
+    setIsMobileMenuOpen(false);
   };
 
-  const handleLinkClick = (label) => {
-    setActiveLink(label);
-    setIsOpen(false);
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   return (
-    <div className={currentColors.bg}>
-      {/* Navbar */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b ${currentColors.navbarBg}`}>
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex justify-between items-center h-16">
+    <div className="bg-gray-900 relative overflow-hidden">
+      {/* Grid Background */}
+      <div className="absolute inset-0 opacity-10">
+        <div 
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(236, 72, 153, 0.3) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(59, 130, 246, 0.3) 1px, transparent 1px)
+            `,
+            backgroundSize: '60px 60px'
+          }}
+        />
+      </div>
 
-            {/* Logo */}
-            <div className="text-2xl font-bold">
-              <span className={currentColors.logo.first}>Dev</span>
-              <span className={currentColors.logo.second}>Port</span>
-              <span className={currentColors.logo.third}>folio</span>
-            </div>
-
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-1">
-              {navItems.map((item) => (
-                <Link to={item.href} key={item.label}>
-                <button
-                  key={item.label}
-                  onClick={() => handleLinkClick(item.label)}
-                  className={`px-4 py-2 rounded-lg font-medium transition-colors border ${
-                    activeLink === item.label
-                      ? currentColors.activeButton
-                      : `${currentColors.inactiveButton} border-transparent`
-                  }`}
-                >
-                  {item.label}
-                  </button>
-                  </Link>
-              ))}
-            </div>
-
-            {/* Controls */}
-            <div className="flex items-center space-x-3">
-
-              {/* Fullscreen Toggle */}
-              <button
-                onClick={toggleFullscreen}
-                className={`p-2 rounded-lg transition-colors border ${currentColors.controlBg} ${currentColors.controlBorder}`}
-              >
-                {isFullscreen ? (
-                  <Minimize className={`w-5 h-5 ${currentColors.logo.second}`} />
-                ) : (
-                  <Maximize className={`w-5 h-5 ${currentColors.logo.second}`} />
-                )}
-              </button>
-                
-              {/* Theme Dropdown */}
-              <ThemeDropdown />
-              
-              {/* Mobile Menu Button */}
-              <button
-                onClick={toggleMenu}
-                className={`lg:hidden p-2 rounded-lg transition-colors border ${currentColors.controlBg} ${currentColors.controlBorder}`}
-              >
-                {isOpen ? (
-                  <X className={`w-6 h-6 ${currentColors.logo.third}`} />
-                ) : (
-                  <Menu className={`w-6 h-6 ${currentColors.logo.third}`} />
-                )}
-              </button>
-            </div>
+      {/* Desktop Navigation Bar */}
+      <nav className="relative z-50 flex items-center justify-between p-4 lg:p-6 bg-gray-800/20 backdrop-blur-xl border-b-2 border-gray-700/50">
+        {/* Logo Section */}
+        <div className="flex items-center space-x-3 lg:space-x-4">
+          <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gray-800/50 rounded-xl flex items-center justify-center border-2 border-pink-400">
+            <Zap className="w-5 h-5 lg:w-6 lg:h-6 text-pink-400" />
           </div>
+          <div className="text-xl lg:text-2xl font-bold">
+            <span className="text-pink-400">Lavudya </span>
+            <span className="text-yellow-400 ml-2">Raja</span>
+          </div>
+        </div>
+
+        {/* Desktop Horizontal Navigation */}
+        <div className="hidden lg:flex bg-gray-800/30 backdrop-blur-xl border-2 w-[500px] justify-center items-center border-gray-700/50 rounded-2xl p-4">
+          <div className="flex items-center justify-center space-x-3">
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              const isActive = activeItem === item.id;
+              const isHovered = hoveredItem === item.id;
+              
+              return (
+                <div key={item.id} className="relative">
+                  <Link to={`${item.link}`} key={item.id}>
+                    <button
+                    onClick={() => handleItemClick(item.id)}
+                    onMouseEnter={() => setHoveredItem(item.id)}
+                    onMouseLeave={() => setHoveredItem(null)}
+                    className={`
+                      relative w-12 h-12 flex items-center justify-center rounded-xl transition-all duration-300 border-2 transform hover:scale-105
+                      ${isActive 
+                        ? `bg-gray-800/70 ${item.neonColor.replace('text-', 'border-')}` 
+                        : 'bg-gray-800/30 border-gray-600/50 hover:border-gray-500'
+                      }
+                    `}
+                  >
+                    <Icon 
+                      className={`
+                        w-5 h-5 transition-colors duration-300
+                        ${isActive 
+                          ? item.neonColor 
+                          : 'text-gray-400 hover:text-gray-200'
+                        }
+                      `} 
+                    />
+                    </button>
+                    </Link>
+
+                  {/* Desktop Tooltip Below Icon */}
+                  {isHovered && (
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 z-50">
+                      <div className={`
+                        px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap border-2 bg-gray-800/90 backdrop-blur-sm
+                        ${item.neonColor} ${item.neonColor.replace('text-', 'border-')}
+                        animate-in fade-in slide-in-from-bottom-2 duration-200
+                      `}>
+                        {item.name}
+                        <div className={`absolute bottom-full left-1/2 transform -translate-x-1/2 w-2 h-2 rotate-45 ${item.neonColor.replace('text-', 'bg-')} -mb-1`} />
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Mobile Menu Button and Fullscreen Toggle */}
+        <div className="flex items-center space-x-3">
+          {/* Mobile Menu Toggle */}
+          <button
+            onClick={toggleMobileMenu}
+            className="lg:hidden w-10 h-10 rounded-xl bg-gray-800/50 border-2 border-cyan-300 hover:border-cyan-200 transition-all duration-300 hover:scale-105 flex items-center justify-center"
+          >
+            {isMobileMenuOpen ? (
+              <X className="w-5 h-5 text-cyan-300" />
+            ) : (
+              <Menu className="w-5 h-5 text-cyan-300" />
+            )}
+          </button>
+
+          {/* Fullscreen Toggle */}
+          <button
+            onClick={toggleFullscreen}
+            className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl bg-gray-800/50 border-2 border-blue-400 hover:border-blue-300 transition-all duration-300 hover:scale-105 flex items-center justify-center"
+          >
+            {isFullscreen ? (
+              <Minimize className="w-4 h-4 lg:w-5 lg:h-5 text-blue-400" />
+            ) : (
+              <Maximize className="w-4 h-4 lg:w-5 lg:h-5 text-blue-400" />
+            )}
+          </button>
         </div>
       </nav>
 
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className={`fixed inset-0 z-40 lg:hidden backdrop-blur-sm ${currentColors.mobileBg}`}>
-          <div className="flex flex-col items-center justify-center h-full space-y-6">
-            {navItems.map((item) => (
-                <Link to={item.href} key={item.label}>
-              <button
-                key={item.label}
-                onClick={() => handleLinkClick(item.label)}
-                className={`text-2xl font-medium px-8 py-4 rounded-xl border transition-colors ${
-                  activeLink === item.label
-                    ? currentColors.activeButton
-                    : `${currentColors.inactiveButton} border-transparent`
-                }`}
-              >
-                {item.label}
-                </button>
-                </Link>
-            ))}
+      {/* Mobile Navigation Menu */}
+      {isMobileMenuOpen && (
+        <div className="lg:hidden relative z-40 bg-gray-800/95 backdrop-blur-xl border-b-2 border-gray-700/50">
+          <div className="p-4">
+            <div className="grid grid-cols-3 gap-4">
+              {navItems.map((item) => {
+                const Icon = item.icon;
+                const isActive = activeItem === item.id;
+                
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => handleItemClick(item.id)}
+                    className={`
+                      relative p-4 rounded-xl transition-all duration-300 border-2 transform active:scale-95
+                      ${isActive 
+                        ? `bg-gray-800/70 ${item.neonColor.replace('text-', 'border-')}` 
+                        : 'bg-gray-800/30 border-gray-600/50 hover:border-gray-500'
+                      }
+                    `}
+                  >
+                    <div className="flex flex-col items-center space-y-2">
+                      <Icon 
+                        className={`
+                          w-6 h-6 transition-colors duration-300
+                          ${isActive 
+                            ? item.neonColor 
+                            : 'text-gray-400'
+                          }
+                        `} 
+                      />
+                      <span className={`
+                        text-xs font-medium
+                        ${isActive 
+                          ? item.neonColor 
+                          : 'text-gray-400'
+                        }
+                      `}>
+                        {item.name}
+                      </span>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
       )}
+      {/* Clean Neon Particles */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {Array.from({ length: 12 }, (_, i) => {
+          const colors = ['bg-pink-400', 'bg-yellow-400', 'bg-cyan-300', 'bg-blue-400'];
+          const colorIndex = i % 4;
+          return (
+            <div
+              key={i}
+              className={`absolute w-1 h-1 lg:w-1.5 lg:h-1.5 ${colors[colorIndex]} rounded-full animate-pulse`}
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 3}s`,
+                animationDuration: `${3 + Math.random() * 2}s`
+              }}
+            />
+          );
+        })}
+      </div>
     </div>
   );
-}
+};
+
+export default FuturisticNavbar;
