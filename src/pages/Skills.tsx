@@ -372,7 +372,7 @@ export default function SkillsPage() {
                 <div className={`text-4xl font-bold mb-2 bg-gradient-to-r ${
                   isDark ? 'from-cyan-400 to-blue-400' : 'from-cyan-600 to-blue-600'
                 } bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300`}>
-                  2+
+                  1
                 </div>
                 <div className={`text-sm font-medium ${
                   isDark ? 'text-gray-300' : 'text-gray-600'
@@ -384,7 +384,7 @@ export default function SkillsPage() {
                 <div className={`text-4xl font-bold mb-2 bg-gradient-to-r ${
                   isDark ? 'from-pink-400 to-red-400' : 'from-pink-600 to-red-600'
                 } bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300`}>
-                  15+
+                  10+
                 </div>
                 <div className={`text-sm font-medium ${
                   isDark ? 'text-gray-300' : 'text-gray-600'
@@ -396,7 +396,7 @@ export default function SkillsPage() {
                 <div className={`text-4xl font-bold mb-2 bg-gradient-to-r ${
                   isDark ? 'from-yellow-400 to-orange-400' : 'from-yellow-600 to-orange-600'
                 } bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300`}>
-                  25+
+                  10+
                 </div>
                 <div className={`text-sm font-medium ${
                   isDark ? 'text-gray-300' : 'text-gray-600'
@@ -408,7 +408,7 @@ export default function SkillsPage() {
                 <div className={`text-4xl font-bold mb-2 bg-gradient-to-r ${
                   isDark ? 'from-green-400 to-teal-400' : 'from-green-600 to-teal-600'
                 } bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300`}>
-                  5+
+                  3+
                 </div>
                 <div className={`text-sm font-medium ${
                   isDark ? 'text-gray-300' : 'text-gray-600'

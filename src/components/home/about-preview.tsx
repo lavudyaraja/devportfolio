@@ -23,7 +23,7 @@ export function AboutPreview() {
           </button>
         </div>
       )}
-      <div className="container max-w-7xl mx-auto px-6">
+      <div className="container max-w-7xl mx-auto px-6 text-white">
         <div className="text-center mb-16">
           <h2 className={`text-4xl md:text-5xl font-bold mb-4`}>
             <span className="text-yellow-400">About</span>{" "}
@@ -34,7 +34,7 @@ export function AboutPreview() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 text-white lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
             <div className={`p-8 rounded-2xl border backdrop-blur-sm`}>
               <h3 className={`text-3xl font-bold mb-6`}>
