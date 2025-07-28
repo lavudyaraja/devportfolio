@@ -197,6 +197,7 @@ const FuturisticNavbar: React.FC = () => {
         {/* Mobile Menu Button and Fullscreen Toggle */}
         <div className="flex items-center space-x-3">
           {/* Mobile Menu Toggle */}
+         
           <button
             onClick={toggleMobileMenu}
             className="lg:hidden w-10 h-10 rounded-xl bg-gray-800/50 border-2 border-cyan-300 hover:border-cyan-200 transition-all duration-300 hover:scale-105 flex items-center justify-center"
@@ -232,6 +233,7 @@ const FuturisticNavbar: React.FC = () => {
                 const isActive = activeItem === item.id;
                 
                 return (
+                  <Link to={`${item.link}`} key={item.id}>
                   <button
                     key={item.id}
                     onClick={() => handleItemClick(item.id)}
@@ -264,6 +266,7 @@ const FuturisticNavbar: React.FC = () => {
                       </span>
                     </div>
                   </button>
+                  </Link>
                 );
               })}
             </div>
